@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "Over15Only")).Succeeded)
+{
+    <p>Hello There!</p>
+}
+
+@*@if ((await AuthorizationService.AuthorizeAsync(User, Model, Operations.Edit)).Succeeded)
+{
+    <button>Edit</button>
+}*@
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="row">
+    <div class="jumbotron">
+        <h2 class="text-success">Admin dashboard - authenticated</h2>
+    </div>
+</div>
+}
+else
+{
+<div class="row">
+    <div class="jumbotron">
+        <h2 class="text-danger">Admin dashboard - Not authenticated</h2>
+    </div>
+</div>
+}
